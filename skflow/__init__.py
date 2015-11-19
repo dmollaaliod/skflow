@@ -18,7 +18,7 @@ import numpy as np
 import tensorflow as tf
 
 from sklearn.base import BaseEstimator, ClassifierMixin, RegressorMixin
-from sklearn.utils import check_array
+from sklearn.utils import check_arrays
 
 from skflow.trainer import TensorFlowTrainer
 from skflow.models import LinearRegression, LogisticRegression
@@ -36,8 +36,10 @@ class DataFeeder(object):
     """
 
     def __init__(self, X, y, n_classes, batch_size):
-        self.X = check_array(X, dtype=np.float32)
-        self.y = check_array(y, ensure_2d=False, dtype=None)
+        check_arrays(X, dtype=np.float32)
+        check_arrays(y, dtype=None)
+        self.X = X
+        self.y = y
         self.n_classes = n_classes
         self.batch_size = batch_size
 
